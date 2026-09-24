@@ -1,0 +1,2 @@
+/* One shared material, sampled for PDF without flattening document text. */
+window.BriefMaterial={async image(){const c=document.createElement('canvas');c.className='material';Object.assign(c.dataset,{material:'field',preset:'prism',size:'.98',spread:'4.6',offset:'.16',grain:'.05',seed:'.3197'});c.style.cssText='position:fixed;left:-2000px;top:0;width:1200px;height:220px;pointer-events:none';document.body.append(c);IOEngine.draw(c,4);const png=c.toDataURL('image/png');c.remove();return png}};

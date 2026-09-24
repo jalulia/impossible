@@ -1,0 +1,52 @@
+{
+  "version": 1,
+  "template": "editorial",
+  "name": "Editorial / spread",
+  "format": "wide",
+  "layout": "editorial",
+  "frame": "none",
+  "surface": "white",
+  "density": "standard",
+  "title": "Keep the signal. Change the form.",
+  "intro": "The material can vary. The brand anchors stay fixed.",
+  "kicker": "THE IMPOSSIBLE OUTCOMES CO.",
+  "footer": "STRATEGY / SYSTEMS / DESIGN / INTELLIGENCE",
+  "material": "thermal",
+  "palette": "prism",
+  "grain": 0.055,
+  "seed": 0.3197,
+  "rotation": -0.55,
+  "scale": 1,
+  "offset": 0,
+  "size": 0.78,
+  "displace": 2.4,
+  "blocks": [
+    {
+      "type": "material",
+      "title": "Material / folded field"
+    },
+    {
+      "type": "text",
+      "title": "Create the conditions.",
+      "text": "We don’t create ideas. We create conditions for outcomes."
+    },
+    {
+      "type": "columns",
+      "title": "Working principles",
+      "items": [
+        [
+          "Passion",
+          "Do what you want and you’ll find you’ve done what you must."
+        ],
+        [
+          "Resolve",
+          "Don’t compromise."
+        ],
+        [
+          "Adaptability",
+          "There are many ways to be right and one way to be wrong."
+        ]
+      ]
+    }
+  ]
+}

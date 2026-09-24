@@ -1,0 +1,52 @@
+{
+  "version": 1,
+  "template": "process",
+  "name": "Process / four stages",
+  "format": "wide",
+  "layout": "diagram",
+  "frame": "none",
+  "surface": "white",
+  "density": "standard",
+  "title": "Give the work a clear direction.",
+  "intro": "Input → frame → compose → review.",
+  "kicker": "THE IMPOSSIBLE OUTCOMES CO.",
+  "footer": "STRATEGY / SYSTEMS / DESIGN / INTELLIGENCE",
+  "material": "edge",
+  "palette": "prism",
+  "grain": 0.055,
+  "seed": 0.3197,
+  "rotation": -0.35,
+  "scale": 1,
+  "offset": 0,
+  "size": 0.78,
+  "displace": 2.4,
+  "blocks": [
+    {
+      "type": "process",
+      "title": "From substance to output.",
+      "items": [
+        [
+          "Input",
+          "Gather the source."
+        ],
+        [
+          "Frame",
+          "Define the decision."
+        ],
+        [
+          "Compose",
+          "Build the artifact."
+        ],
+        [
+          "Review",
+          "Check it in context."
+        ]
+      ]
+    },
+    {
+      "type": "text",
+      "title": "Create the conditions.",
+      "text": "We don’t create ideas. We create conditions for outcomes."
+    }
+  ]
+}

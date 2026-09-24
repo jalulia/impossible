@@ -1,0 +1,92 @@
+{
+  "version": 1,
+  "template": "brief",
+  "name": "Working brief",
+  "format": "letter",
+  "layout": "document",
+  "frame": "none",
+  "surface": "white",
+  "density": "detailed",
+  "title": "Create the\nconditions.",
+  "intro": "Strategy. Systems. Design. Intelligence.",
+  "kicker": "THE IMPOSSIBLE OUTCOMES CO.",
+  "footer": "STRATEGY / SYSTEMS / DESIGN / INTELLIGENCE",
+  "material": "edge",
+  "palette": "prism",
+  "grain": 0.055,
+  "seed": 0.3197,
+  "rotation": -0.35,
+  "scale": 1,
+  "offset": 0,
+  "size": 0.78,
+  "displace": 2.4,
+  "blocks": [
+    {
+      "type": "text",
+      "title": "Create the conditions.",
+      "text": "We don’t create ideas. We create conditions for outcomes."
+    },
+    {
+      "type": "ledger",
+      "title": "Brand elements",
+      "items": [
+        [
+          "Practice",
+          "Strategy. Systems. Design. Intelligence."
+        ],
+        [
+          "Type",
+          "Poppins and Proxima Nova."
+        ],
+        [
+          "Color",
+          "Solar Ember and Blue Sky."
+        ],
+        [
+          "Mark",
+          "Exact SVG artwork."
+        ]
+      ]
+    },
+    {
+      "type": "columns",
+      "title": "Working principles",
+      "items": [
+        [
+          "Passion",
+          "Do what you want and you’ll find you’ve done what you must."
+        ],
+        [
+          "Resolve",
+          "Don’t compromise."
+        ],
+        [
+          "Adaptability",
+          "There are many ways to be right and one way to be wrong."
+        ]
+      ]
+    },
+    {
+      "type": "process",
+      "title": "From substance to output.",
+      "items": [
+        [
+          "Input",
+          "Gather the source."
+        ],
+        [
+          "Frame",
+          "Define the decision."
+        ],
+        [
+          "Compose",
+          "Build the artifact."
+        ],
+        [
+          "Review",
+          "Check it in context."
+        ]
+      ]
+    }
+  ]
+}

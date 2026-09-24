@@ -1,0 +1,137 @@
+{
+  "type": "object",
+  "required": [
+    "version",
+    "meta",
+    "palette",
+    "source",
+    "blocks",
+    "slides"
+  ],
+  "properties": {
+    "version": {
+      "const": 1
+    },
+    "meta": {
+      "type": "object",
+      "required": [
+        "title",
+        "client",
+        "label"
+      ],
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "client": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        }
+      }
+    },
+    "palette": {
+      "enum": [
+        "source",
+        "working"
+      ]
+    },
+    "source": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "html": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "sample": {
+          "type": "boolean"
+        }
+      }
+    },
+    "blocks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "type",
+          "html"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "enum": [
+              "heading",
+              "paragraph",
+              "list",
+              "table",
+              "quote",
+              "image"
+            ]
+          },
+          "html": {
+            "type": "string"
+          },
+          "level": {
+            "type": "integer",
+            "minimum": 2,
+            "maximum": 6
+          }
+        }
+      }
+    },
+    "slides": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "body",
+          "notes",
+          "layout",
+          "sourceIds"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "body": {
+            "type": "string"
+          },
+          "notes": {
+            "type": "string"
+          },
+          "layout": {
+            "enum": [
+              "cover",
+              "editorial",
+              "statement",
+              "split"
+            ]
+          },
+          "sourceIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

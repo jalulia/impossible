@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "template": "social",
+  "name": "Social / square",
+  "format": "square",
+  "layout": "poster",
+  "frame": "social",
+  "surface": "white",
+  "density": "sparse",
+  "title": "Make it\nreal.",
+  "intro": "The Impossible Outcomes Co.",
+  "kicker": "THE IMPOSSIBLE OUTCOMES CO.",
+  "footer": "STRATEGY / SYSTEMS / DESIGN / INTELLIGENCE",
+  "material": "fold",
+  "palette": "prism",
+  "grain": 0.055,
+  "seed": 0.3197,
+  "rotation": -0.55,
+  "scale": 17,
+  "offset": 0.1,
+  "size": 0.78,
+  "displace": 3.4,
+  "blocks": [
+    {
+      "type": "material",
+      "title": "Material / folded field"
+    }
+  ]
+}

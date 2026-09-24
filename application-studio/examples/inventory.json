@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "template": "inventory",
+  "name": "Infographic / inventory",
+  "format": "wide",
+  "layout": "grid",
+  "frame": "none",
+  "surface": "white",
+  "density": "standard",
+  "title": "Inventory",
+  "intro": "",
+  "kicker": "THE IMPOSSIBLE OUTCOMES CO.",
+  "footer": "STRATEGY / SYSTEMS / DESIGN / INTELLIGENCE",
+  "material": "screen",
+  "palette": "prism",
+  "grain": 0.055,
+  "seed": 0.3197,
+  "rotation": -0.55,
+  "scale": 3,
+  "offset": 0.1,
+  "size": 0.78,
+  "displace": 2.6,
+  "blocks": [
+    {
+      "type": "bars",
+      "title": "Inventory",
+      "items": [],
+      "source": ""
+    },
+    {
+      "type": "ring",
+      "title": "Inventory",
+      "items": [],
+      "source": ""
+    }
+  ]
+}

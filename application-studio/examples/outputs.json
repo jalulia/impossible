@@ -1,0 +1,69 @@
+{
+  "version": 1,
+  "template": "outputs",
+  "name": "Infographic / outputs",
+  "format": "portrait",
+  "layout": "document",
+  "frame": "none",
+  "surface": "white",
+  "density": "standard",
+  "title": "One brief.\nThree outputs.",
+  "intro": "Keep the content connected as the format changes.",
+  "kicker": "THE IMPOSSIBLE OUTCOMES CO.",
+  "footer": "STRATEGY / SYSTEMS / DESIGN / INTELLIGENCE",
+  "material": "fold",
+  "palette": "prism",
+  "grain": 0.055,
+  "seed": 0.3197,
+  "rotation": -0.55,
+  "scale": 17,
+  "offset": 0.1,
+  "size": 0.78,
+  "displace": 3.4,
+  "blocks": [
+    {
+      "type": "columns",
+      "title": "Working principles",
+      "items": [
+        [
+          "Passion",
+          "Do what you want and you’ll find you’ve done what you must."
+        ],
+        [
+          "Resolve",
+          "Don’t compromise."
+        ],
+        [
+          "Adaptability",
+          "There are many ways to be right and one way to be wrong."
+        ]
+      ]
+    },
+    {
+      "type": "process",
+      "title": "From substance to output.",
+      "items": [
+        [
+          "Input",
+          "Gather the source."
+        ],
+        [
+          "Frame",
+          "Define the decision."
+        ],
+        [
+          "Compose",
+          "Build the artifact."
+        ],
+        [
+          "Review",
+          "Check it in context."
+        ]
+      ]
+    },
+    {
+      "type": "material",
+      "title": "Material / folded field"
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "template": "comparison",
+  "name": "Comparison / matrix",
+  "format": "wide",
+  "layout": "diagram",
+  "frame": "none",
+  "surface": "white",
+  "density": "standard",
+  "title": "Match the format to the work.",
+  "intro": "Choose the content structure before choosing the surface.",
+  "kicker": "THE IMPOSSIBLE OUTCOMES CO.",
+  "footer": "STRATEGY / SYSTEMS / DESIGN / INTELLIGENCE",
+  "material": "lines",
+  "palette": "prism",
+  "grain": 0.055,
+  "seed": 0.3197,
+  "rotation": -0.55,
+  "scale": 3,
+  "offset": 0.1,
+  "size": 0.78,
+  "displace": 2.6,
+  "blocks": [
+    {
+      "type": "matrix",
+      "title": "Choose the right register.",
+      "items": [
+        [
+          "Showcase",
+          "One idea",
+          "Large statement",
+          "Material-led"
+        ],
+        [
+          "Working document",
+          "Evidence + detail",
+          "Reading hierarchy",
+          "Paper-led"
+        ],
+        [
+          "Presentation",
+          "A sequence",
+          "One point per frame",
+          "Mixed"
+        ]
+      ],
+      "headers": [
+        "Format",
+        "Content",
+        "Type",
+        "Composition"
+      ]
+    },
+    {
+      "type": "callout",
+      "title": "The content sets the structure.",
+      "text": "Use the material to support the argument."
+    }
+  ]
+}

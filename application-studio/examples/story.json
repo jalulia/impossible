@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "template": "story",
+  "name": "Social / story",
+  "format": "story",
+  "layout": "poster",
+  "frame": "iphone",
+  "surface": "black",
+  "density": "sparse",
+  "title": "Create the\nconditions.",
+  "intro": "Then make it real.",
+  "kicker": "THE IMPOSSIBLE OUTCOMES CO.",
+  "footer": "STRATEGY / SYSTEMS / DESIGN / INTELLIGENCE",
+  "material": "ribbon",
+  "palette": "prism",
+  "grain": 0.055,
+  "seed": 0.3197,
+  "rotation": -0.42,
+  "scale": 1,
+  "offset": 0,
+  "size": 0.78,
+  "displace": 2.4,
+  "blocks": [
+    {
+      "type": "material",
+      "title": "Material / folded field"
+    }
+  ]
+}

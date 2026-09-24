@@ -1,0 +1,69 @@
+{
+  "version": 1,
+  "template": "roadmap",
+  "name": "Roadmap / sequence",
+  "format": "wide",
+  "layout": "diagram",
+  "frame": "none",
+  "surface": "white",
+  "density": "standard",
+  "title": "Make the next move clear.",
+  "intro": "An ordered plan with space for decisions and ownership.",
+  "kicker": "THE IMPOSSIBLE OUTCOMES CO.",
+  "footer": "STRATEGY / SYSTEMS / DESIGN / INTELLIGENCE",
+  "material": "edge",
+  "palette": "prism",
+  "grain": 0.055,
+  "seed": 0.3197,
+  "rotation": -0.35,
+  "scale": 1,
+  "offset": 0,
+  "size": 0.78,
+  "displace": 2.4,
+  "blocks": [
+    {
+      "type": "timeline",
+      "title": "Make the next step clear.",
+      "items": [
+        [
+          "Define",
+          "Purpose, audience, and constraints."
+        ],
+        [
+          "Build",
+          "A working composition with real content."
+        ],
+        [
+          "Test",
+          "Readability, behavior, and export."
+        ],
+        [
+          "Deliver",
+          "Editable files and a clear handoff."
+        ]
+      ]
+    },
+    {
+      "type": "ledger",
+      "title": "Brand elements",
+      "items": [
+        [
+          "Practice",
+          "Strategy. Systems. Design. Intelligence."
+        ],
+        [
+          "Type",
+          "Poppins and Proxima Nova."
+        ],
+        [
+          "Color",
+          "Solar Ember and Blue Sky."
+        ],
+        [
+          "Mark",
+          "Exact SVG artwork."
+        ]
+      ]
+    }
+  ]
+}

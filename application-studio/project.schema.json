@@ -1,0 +1,280 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Impossible Application Studio project",
+  "type": "object",
+  "required": [
+    "version",
+    "template",
+    "format",
+    "density",
+    "blocks"
+  ],
+  "properties": {
+    "version": {
+      "const": 1
+    },
+    "template": {
+      "enum": [
+        "opening",
+        "social",
+        "story",
+        "brief",
+        "editorial",
+        "overview",
+        "process",
+        "system",
+        "inventory",
+        "comparison",
+        "roadmap",
+        "outputs"
+      ]
+    },
+    "format": {
+      "enum": [
+        "wide",
+        "square",
+        "story",
+        "letter",
+        "portrait"
+      ]
+    },
+    "density": {
+      "enum": [
+        "sparse",
+        "standard",
+        "detailed"
+      ]
+    },
+    "frame": {
+      "enum": [
+        "none",
+        "iphone",
+        "social",
+        "browser"
+      ]
+    },
+    "surface": {
+      "enum": [
+        "white",
+        "black",
+        "ember"
+      ]
+    },
+    "layout": {
+      "enum": [
+        "split",
+        "poster",
+        "document",
+        "editorial",
+        "grid",
+        "diagram"
+      ]
+    },
+    "name": {
+      "type": "string",
+      "maxLength": 12000
+    },
+    "title": {
+      "type": "string",
+      "maxLength": 12000
+    },
+    "intro": {
+      "type": "string",
+      "maxLength": 12000
+    },
+    "kicker": {
+      "type": "string",
+      "maxLength": 12000
+    },
+    "footer": {
+      "type": "string",
+      "maxLength": 12000
+    },
+    "material": {
+      "enum": [
+        "field",
+        "fold",
+        "ribbon",
+        "eclipse",
+        "orb",
+        "chrome",
+        "thermal",
+        "screen",
+        "lines",
+        "edge"
+      ]
+    },
+    "palette": {
+      "enum": [
+        "prism",
+        "site",
+        "blue",
+        "orange"
+      ]
+    },
+    "grain": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 0.24
+    },
+    "seed": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "rotation": {
+      "type": "number",
+      "minimum": -3.14,
+      "maximum": 3.14
+    },
+    "scale": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 28
+    },
+    "offset": {
+      "type": "number",
+      "minimum": -1,
+      "maximum": 1
+    },
+    "size": {
+      "type": "number",
+      "minimum": 0.25,
+      "maximum": 1.2
+    },
+    "displace": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 6
+    },
+    "blocks": {
+      "type": "array",
+      "maxItems": 6,
+      "items": {
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "properties": {
+          "type": {
+            "enum": [
+              "material",
+              "text",
+              "columns",
+              "process",
+              "network",
+              "bars",
+              "ring",
+              "matrix",
+              "timeline",
+              "callout",
+              "ledger"
+            ]
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 12000
+          },
+          "text": {
+            "type": "string",
+            "maxLength": 12000
+          },
+          "center": {
+            "type": "string",
+            "maxLength": 12000
+          },
+          "source": {
+            "type": "string",
+            "maxLength": 12000
+          },
+          "items": {
+            "type": "array",
+            "maxItems": 12,
+            "items": {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 5,
+              "items": {
+                "type": [
+                  "string",
+                  "number"
+                ]
+              }
+            }
+          },
+          "headers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "appearance": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "material": {
+                "enum": [
+                  "field",
+                  "fold",
+                  "ribbon",
+                  "eclipse",
+                  "orb",
+                  "chrome",
+                  "thermal",
+                  "screen",
+                  "lines",
+                  "edge"
+                ]
+              },
+              "palette": {
+                "enum": [
+                  "prism",
+                  "site",
+                  "blue",
+                  "orange"
+                ]
+              },
+              "grain": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 0.24
+              },
+              "seed": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "rotation": {
+                "type": "number",
+                "minimum": -3.14,
+                "maximum": 3.14
+              },
+              "scale": {
+                "type": "number",
+                "minimum": 1,
+                "maximum": 28
+              },
+              "offset": {
+                "type": "number",
+                "minimum": -1,
+                "maximum": 1
+              },
+              "size": {
+                "type": "number",
+                "minimum": 0.25,
+                "maximum": 1.2
+              },
+              "displace": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 6
+              }
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "template": "system",
+  "name": "System / relationships",
+  "format": "wide",
+  "layout": "diagram",
+  "frame": "none",
+  "surface": "white",
+  "density": "standard",
+  "title": "The parts work together.",
+  "intro": "Make each role clear. Keep the connections visible.",
+  "kicker": "THE IMPOSSIBLE OUTCOMES CO.",
+  "footer": "STRATEGY / SYSTEMS / DESIGN / INTELLIGENCE",
+  "material": "orb",
+  "palette": "prism",
+  "grain": 0.055,
+  "seed": 0.3197,
+  "rotation": -0.55,
+  "scale": 1,
+  "offset": 0,
+  "size": 0.78,
+  "displace": 2.4,
+  "blocks": [
+    {
+      "type": "network",
+      "title": "A connected practice.",
+      "center": "Outcome",
+      "items": [
+        [
+          "Strategy",
+          "Set the direction."
+        ],
+        [
+          "Systems",
+          "Connect the parts."
+        ],
+        [
+          "Design",
+          "Make it clear."
+        ],
+        [
+          "Intelligence",
+          "Make it useful."
+        ]
+      ]
+    },
+    {
+      "type": "text",
+      "title": "Create the conditions.",
+      "text": "We don’t create ideas. We create conditions for outcomes."
+    }
+  ]
+}
