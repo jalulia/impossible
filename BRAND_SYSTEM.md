@@ -27,23 +27,21 @@ Inspect small reproductions and allow enough space to preserve the mark’s silh
 
 ## Material families
 
-Nine computed materials share one program (`source/materials.frag`) and related causes: the site field’s warped phase for ridges and screens, explicit curves for ribbons, the band and edge light, and distance geometry for bodies. Color is mixed in Oklab and converted to sRGB with the standard piecewise transfer; emitted light (Edge light) adds in linear light so the glow keeps the token hues. Grain is single-pixel, from an integer-quality hash, added to lightness and gated to each material’s body: it never forms a pattern and never washes out a color. Surfaces are matte; there are no specular highlights. Choose one primary family per composition and state its read before tuning parameters.
+Eleven computed materials share one renderer: the primary field (`source/field.frag`) and ten families in one program (`source/materials.frag`) with related causes: the field’s warped phase for ridges and screens, explicit curves for the ribbon and the edge light, polar and diagonal axes for light, and distance geometry for bodies. Color is interpolated in light: a plain OKLab mix with no hue shoulder, converted once to sRGB. Light materials (Prism, Burst, Edge light) add in linear light so the glow keeps the token hues. Grain is single-pixel, from an integer-quality hash, added to lightness and gated to each material’s body: it never forms a pattern and never washes out a color. Surfaces are matte; there are no specular highlights. Choose one primary family per composition and state its read before tuning parameters.
 
-- Folded field — a pressed surface: Ember faces, Violet valleys, one raking light. The profile is a slow rise and a steep rounded return, continuous across the crest and the wrap, so edges never alias. A key light shades the faces from deep red to Ember; a cool back light lifts the return faces from Navy through Violet to a Sky-lit crest; troughs close through Navy into Black. Covers, full-bleed dividers. `data-scale` sets ridge count.
+- Primary field — the hero ramp: Black, Navy, Blue Sky, Solar Ember, Black in five equal segments with a 0.75 handover, warped slowly by fbm at rates +0.020 and −0.017; film grain 0.14 at 12fps. The ramp opens and closes on black, so the ember reads as a flare and black covers close to half the frame. Every field preset keeps this shape. Covers, hero, everything.
+- Applied — the exact mark, white, centered over the primary field. Social, stamps, signatures.
+- Folded field — a pressed surface: Ember faces, Navy valleys, one raking light. The profile is a slow rise and a steep rounded return, continuous across the crest and the wrap, so edges never alias. A key light shades the faces from deep red to Ember; a cool back light lifts the return faces from Navy through Violet to a Sky-lit crest; troughs close through Navy into Black. Covers, full-bleed dividers. `data-scale` sets ridge count.
 - Grain ribbon — two bands of one surface twisting through the whole ramp; heavy grain gated to density. Posters, key visuals.
 - Eclipse — dark reserve, one luminous limb, directional corona on a Sky-to-Ember limb and a localized white flare. Focus slides, social. The center stays black.
 - Orbs — six flat disks, each a shaped gradient of one color: the token at the lit edge falls through its own dark relative (Ember → deep red, Sky → Violet, Violet → Navy), with fbm mottle in the coverage. No sphere shading. Concept systems, OOH. `data-seed` jitters the arrangement.
-- Chromatic fold — one matte band crossing the frame, Violet → Sky → a dark crease → Ember Soft → Ember across its width; at one point it twists to a line and the run flips sides. Hero frames, deck openings. `data-offset` moves the band.
+- Prism — a long exposure of light through a prism: seven parallel bands along one diagonal (Navy, Violet, Sky, Pale-to-White, Ember, Ember Soft, Navy), adding in linear light, brightening to white where they overlap, exposure stepping faintly along the streak. Hero frames, titles. `data-offset` moves the streak.
 - Thermal body — a warm mass and two satellites on paper, read through the edge: Ember lifting toward Ember Soft at the center, then a Navy hairline, Violet, Sky, Sky Pale, paper. The grain lives in the halo, like a thermal print. Light layouts, editorial.
-- Two-plate screen — an Ember plate and a Violet plate at 15° and 75°, each a soft form dissolving into paper; the Violet plate is a hair out of register and the overprint darkens. Print, covers, stamps.
+- Burst — rays of light converging on a black axis: angular noise makes the rays, a soft cross through the center stays void, color turns from Ember above through White to Sky below. Focus frames, social. `data-seed` turns the rays.
 - Line screen — one ink, one fine pitch; a body appears only as line weight, near solid at its center, hairline at its edge, gone in the reserve. Editorial, reports.
 - Edge light — one luminous line; everything else is reserve. A one-pixel core, Ember glow below, Sky above, and thin displaced hairs of the palette where the light splits. Title frames, dividers, app headers.
 
-Typographic treatments (CSS/SVG, always live text), each one word set as a composition:
-
-- Type diffusion — one statement, four copies of the same live text masked along one diagonal: sharp Ember at the source, blurring through Violet into Sky.
-- Ink type — one word in one Ember plate: a fine dot screen masks pinholes of paper into the letter, turbulence grain varies the coverage, and the outline is displaced. The principle it names is set small beneath it.
-- Line-screen type — three copies of the same live text on one 6px pitch, 1.8, 3.3 and 4.7px lines, handed from one weight to the next by vertical masks: hairline at the top, solid at the foot.
+Typographic treatment (CSS, always live text): Type diffusion — one statement, four copies of the same live text masked along one diagonal: sharp Ember at the source, blurring through Violet into Sky.
 
 All materials support palette and grain. Geometry controls are material-specific and exposed in the application inspector; the spec export lists only the parameters implemented for that material. `data-live` animates a non-field material. The material spec export (`Impossible-materials.json`) lists the seven-layer chain for each family. Do not stack materials; do not add a second grain pass; do not place small type across a valley, a rim, or the tube.
 
@@ -53,7 +51,7 @@ The field uses rates +0.020 and −0.017, a 12fps grain cadence, and slow contin
 
 The toolkit shares one WebGL context across visible material canvases, caps resolution, and pauses offscreen animation. Reduced motion freezes the field. Pause must remain available. Static gradient fallback is provided when WebGL is unavailable; that fallback is not the full field renderer.
 
-`source/site-field.frag` contains the field shader. `source/field.frag` renders live type over a quieter lens rim, finer grain, and continuous color shoulders. `engine.js` contains material extensions and presets.
+`source/site-field.frag` preserves the original site shader. `source/field.frag` is the live field: the hero ramp, a quieter lens rim, and film grain. `engine.js` contains material extensions and presets.
 
 ## Editability and delivery
 
@@ -70,8 +68,8 @@ Use approved brand copy. Keep example content clearly separate from client work.
 
 ## Color transitions
 
-Treat swatches as endpoints, not broad bands of flat color. Dark cool transitions bend toward teal before reaching Sky; dark warm transitions bend toward red before reaching Ember. These intermediate hues are renderer behavior, not new brand swatches.
+Treat swatches as endpoints, not broad bands of flat color. Color is interpolated in light, never in pigment: every ramp is a plain OKLab mix between adjacent stops, with the handover width set by `size` (0.75 in the hero). The intermediate colors are renderer behavior, not new brand swatches.
 
-The shared OKLab interpolation rotates intermediate hue only when the two endpoints differ sufficiently in lightness. It preserves the endpoints. Pale contributes a 12% lift to the cool bridge and has no independent plateau. The warm shoulder has more room than the cool-to-warm crossover. Do not replace these fields with flat blue/orange stripes or a navy-and-peach wash.
+The hero ramp is Black, Navy, Blue Sky, Solar Ember, Black. It opens and closes on black, so a field enters and leaves through the void instead of wrapping color onto color; that is what makes the ember read as a flare and the blue sit deep rather than royal. Do not replace a field with flat blue/orange stripes or a navy-and-peach wash.
 
 Brief Studio, Application Studio, and their HTML exports embed this renderer. Brief PDF output uses a rendered field image only for the material band; copy and the exact mark remain text/vector. The static fallback samples the same color path, with simplified geometry.

@@ -49,7 +49,8 @@ vec3 materialMix(vec3 a,vec3 b,float f){
  float ca=cos(angle),sa=sin(angle);c.yz=vec2(ca*c.y-sa*c.z,sa*c.y+ca*c.z)*(1.+.14*shoulder);
  return c;
 }
-vec3 okmix(vec3 a,vec3 b,float t){return materialMix(a,b,t);}
+/* Color is interpolated in light: a plain OKLab mix, no hue shoulder. */
+vec3 okmix(vec3 a,vec3 b,float t){return mix(a,b,clamp(t,0.,1.));}
 
 /* ---- shared cause ------------------------------------------------ */
 float phase(vec2 uv){
@@ -63,11 +64,10 @@ vec3 pick(float i, vec3 a, vec3 b, vec3 c, vec3 d, vec3 e){
   vec3 r=a; r=mix(r,b,step(.5,i)); r=mix(r,c,step(1.5,i)); r=mix(r,d,step(2.5,i)); r=mix(r,e,step(3.5,i)); return r;
 }
 vec3 ramp5(float t){
- float x=fract(t);vec3 bridge=mix(uC2,uC3,.12);
- if(x<.28)return okmix(uC1,uC2,smoothstep(0.,.28,x));
- if(x<.38)return okmix(uC2,bridge,smoothstep(.28,.38,x));
- if(x<.54){float f=smoothstep(.38,.54,x);vec3 c=okmix(bridge,uC4,f);c.x-=.045*sin(f*3.14159265);return c;}
- return okmix(uC4,uC5,smoothstep(.54,1.,x));
+ /* the hero ramp: five stops, five equal segments, opening and closing on black */
+ float x=fract(t)*5.0; float i=floor(x);
+ float f=smoothstep(.125,.875,fract(x)); f=f*f*(3.-2.*f);
+ return mix(pick(i,uC1,uC2,uC3,uC4,uC5),pick(i,uC2,uC3,uC4,uC5,uC1),f);
 }
 
 /* ---- materials ---------------------------------------------------- */
@@ -184,34 +184,32 @@ vec3 orbs(vec2 uv, out float body){
   return col;
 }
 
-/* Chromatic fold: one matte band crossing the frame, its color running
-   across the width from Violet through Sky to Ember. At one point the band
-   twists: it narrows to a line and the run of color flips sides. */
+/* Prism: a long-exposure spectral streak. Parallel bands lie along one
+   diagonal, each a soft gaussian of one token; they add in linear light
+   on black, so where bands overlap the light brightens toward white. */
+float gband(float x,float w){return exp(-x*x/(2.*w*w));}
 vec3 chrome(vec2 uv, out float body){
-  vec2 p = rot(uRotation)*uv; float x = p.x;
-  float px=1./min(uRes.x,uRes.y);
-  float c = .11*sin(x*1.5+uSeed*5.) + .05*sin(x*3.1+1.) + uOffset;
-  float x0 = .10 + .12*sin(uSeed*7.);
-  float ex = exp(2.*clamp((x-x0)*3.4,-8.,8.)); float tw = (ex-1.)/(ex+1.);
-  float w = .045 + .20*abs(tw);
-  float a = (p.y-c)/w;
-  float aa = 1.5*px/w;
-  float inside = 1.-smoothstep(1.-aa,1.+aa,abs(a));
-  float t = clamp((a*sign(tw+1e-5))*.5+.5,0.,1.);
-  float drift = .06*sin(x*2.2+uSeed);                 /* the spectrum slides a little along the band */
-  t = clamp(t+drift,0.,1.);
-  vec3 col = okmix(uV,uS,smoothstep(.0,.36,t));
-  float crease = smoothstep(.36,.50,t)*(1.-smoothstep(.50,.64,t));           /* the crease: lightness drops, hue stays */
-  col = okmix(col,uEs,smoothstep(.50,.70,t));
-  col = okmix(col,uE,smoothstep(.62,1.,t));
-  float edge = pow(max(0.,1.-a*a),.28);                /* matte roll-off at the silhouette */
-  col.x *= .50+.50*edge;
-  col.x *= 1.-.62*crease;
-  col.x *= .55+.45*smoothstep(.0,.4,abs(tw));          /* the twist sits in shadow */
-  float tone = fbm(vec2(x*3.,a*1.5)+uSeed)-.5;         /* faint surface unevenness */
-  col.x += tone*.05*inside;
-  body = inside*(.3+.7*edge);
-  return okmix(vec3(0.),col,inside);
+  vec2 p = rot(uRotation)*uv;
+  float bow = .10*sin(p.x*1.3+uSeed*5.);
+  float d = p.y - bow - uOffset*.5;
+  float along = p.x;
+  float env = smoothstep(-1.05,-.35,along)*(1.-smoothstep(.30,1.0,along));
+  float expo = .55+.45*fbm(vec2(along*2.2+uSeed*3., uTime*.03));      /* exposure varies along the streak */
+  float stair = 1.-.20*smoothstep(.35,.65,fract(along*5.+uSeed));       /* the faint stepping of a long exposure */
+  vec3 V=ok2linear(uV),S=ok2linear(uS),P=ok2linear(uP),E=ok2linear(uE),Es=ok2linear(uEs),N=ok2linear(uN),W=vec3(1.);
+  float k=.085;
+  vec3 lin = N *gband(d+3.1*k,.060)*.50
+           + V *gband(d+2.05*k,.036)*1.00
+           + S *gband(d+1.0*k,.034)*1.10
+           + mix(P,W,.6)*gband(d,.040)*1.35
+           + E *gband(d-1.0*k,.040)*1.15
+           + Es*gband(d-2.05*k,.046)*.60
+           + N *gband(d-3.2*k,.070)*.30;
+  lin += (S*.5+E*.5)*exp(-abs(d)*4.)*.16;                                /* the glow into the black */
+  lin *= env*expo*stair;
+  lin = 1.-exp(-lin*1.35);
+  body = clamp(dot(lin,vec3(.33)),0.,1.)*1.2;
+  return linear2ok(lin);
 }
 
 /* Thermal body: a warm mass on paper, read through its edge. The edge runs
@@ -244,22 +242,29 @@ float halftone(vec2 uv, float ang, float freq, float density){
   float aa = 1.4*freq/uRes.y;
   return 1.-smoothstep(rad-aa, rad+aa, d);
 }
-/* Two-plate screen: an Ember plate and a Violet plate, each a soft form that
-   dissolves into paper across the card; overprint darkens where they meet. */
+/* Burst: rays of light converging on a black axis. Angular noise makes the
+   rays; a soft cross through the center stays void; color turns with the
+   angle from Ember through White to Sky, adding in linear light. */
 vec3 riso(vec2 uv, out float body){
-  float ph = phase(uv);
-  float freq = 64.*uScale/3.;
-  float dA = length((uv-vec2(-.14,-.12))*vec2(1.,.92));
-  float A0 = (1.-smoothstep(.10,.60,dA))*(.80+.20*sin(ph*6.2831));
-  float dB = length((uv-vec2(.22,.20))*vec2(1.,1.1));
-  float B0 = (1.-smoothstep(.06,.46,dB))*(.72+.28*sin(ph*6.2831+2.5));
-  float A = halftone(uv, .26, freq, A0*.96);
-  float B = halftone(uv+vec2(2.4,-1.6)/uRes.y, 1.31, freq, B0*.80);
-  vec3 plateA=mix(vec3(1.),ok2linear(uE),A);
-  vec3 plateB=mix(vec3(1.),ok2linear(uV),B);
-  vec3 col=linear2ok(plateA*plateB);
-  body = max(A,B)*.6;
-  return col;
+  vec2 q = uv - vec2(.04+.05*sin(uSeed*7.), .0);
+  float r = length(q), ang = atan(q.y,q.x);
+  float rays = fbm(vec2(ang*3.2+uSeed*3., r*1.2));
+  float fine = fbm(vec2(ang*13.-uSeed*2., 2.3+r*.5));
+  float ray = pow(rays,2.4)*1.3 + pow(fine,1.8)*.7;
+  float warm = smoothstep(-.30,.30,q.y+.04*sin(ang*3.+uSeed));            /* warm above, cool below, white between */
+  vec3 S=ok2linear(uS),E=ok2linear(uE),Es=ok2linear(uEs),P=ok2linear(uP),N=ok2linear(uN),W=vec3(1.);
+  vec3 cool = mix(mix(N,S,.7),P,.35), hot = mix(E,Es,.25);
+  vec3 hue = mix(cool, hot, warm);
+  hue = mix(hue, W, (1.-abs(warm*2.-1.))*.45);                             /* the middle burns white */
+  float fall = .15+.85*exp(-r*.9);
+  float I = fall*(.06+1.1*ray);
+  vec3 lin = hue*I + W*pow(ray,3.)*fall*.8;
+  float cx = smoothstep(.02,.10,abs(q.x)), cy = smoothstep(.012,.062,abs(q.y));
+  lin *= cx*cy;                                                           /* the black axis */
+  lin *= 1.-smoothstep(.75,1.15,r);
+  lin = 1.-exp(-lin*1.3);
+  body = clamp(dot(lin,vec3(.33)),0.,1.)*1.1;
+  return linear2ok(lin);
 }
 
 /* Line screen: one ink, one fine pitch. A body appears only as line weight —

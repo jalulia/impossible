@@ -70,18 +70,13 @@ vec3 materialMix(vec3 a,vec3 b,float f){
 }
 
 vec3 palette(float t){
- float x=fract(t),w=clamp(uSize,.25,1.);
- // Continuous shoulders, a brief light bridge, and a red or teal colored descent.
- // The pale token lifts the bridge; it does not occupy a full band.
- vec3 bridge=mix(uC2,uC3,.12);
- float i;vec3 a,b;
- if(x<.28){i=x/.28;a=uC1;b=uC2;}
- else if(x<.38){i=(x-.28)/.10;a=uC2;b=bridge;}
- else if(x<.54){i=(x-.38)/.16;a=bridge;b=uC4;}
- else{i=(x-.54)/.46;a=uC4;b=uC5;}
- float f=smoothstep(.5-w*.5,.5+w*.5,i);
- vec3 c=materialMix(a,b,f);
- if(x>=.38&&x<.54)c.x-=.045*sin(f*3.14159265);
+ /* Five stops, five equal segments, mixed in OKLab. The ramp opens and
+    closes on black, so it enters and leaves through the void instead of
+    wrapping color onto color; uSize is the width of each handover. */
+ float x=fract(t)*5.0; float i=floor(x);
+ float w=clamp(uSize,.001,1.);
+ float f=smoothstep(.5-w*.5,.5+w*.5,fract(x)); f=f*f*(3.-2.*f);
+ vec3 c=mix(pick(i,uC1,uC2,uC3,uC4,uC5),pick(i,uC2,uC3,uC4,uC5,uC1),f);
  return oklab2srgb(c);
 }
 
